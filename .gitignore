@@ -1,0 +1,19 @@
+# 1. Dependencies
+node_modules/
+frontend/node_modules/
+backend/venv/
+venv/
+
+# 2. Sensitive Keys
+.env
+backend/.env
+
+# 3. System & Build Files (Add these!)
+**/__pycache__/
+**/*.pyc
+dist/
+build/
+.DS_Store
+# 4. Runtime files
+backend/uploads/*
+!backend/uploads/.gitkeep

@@ -1,0 +1,8 @@
+fastapi==0.116.1
+uvicorn[standard]==0.35.0
+python-multipart==0.0.20
+python-dotenv==1.1.1
+pandas==2.3.1
+openpyxl==3.1.5
+llama-parse==0.6.56
+google-genai==1.31.0
