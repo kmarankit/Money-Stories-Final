@@ -405,3 +405,46 @@ html, body {
     font-size: 15px;
   }
 }
+/* Sample Dataset Section */
+.sample-dataset-section {
+  margin-bottom: 20px;
+}
+
+.sample-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.sample-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sample-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  background: #fafafa;
+}
+
+.sample-card:hover {
+  border-color: #2e7d32;
+  background: #f0f9f2;
+}
+
+.sample-card.active {
+  border: 2px solid #2e7d32;
+  background: #e8f5e9;
+}
+
+.sample-card input {
+  accent-color: #2e7d32;
+}
