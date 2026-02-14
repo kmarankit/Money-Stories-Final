@@ -6,15 +6,25 @@ import {
 } from 'lucide-react';
 import './App.css';
 
+
+
 // --- SUB-COMPONENT: SideInfoDropdowns ---
 const SideInfoDropdowns = () => {
   const [openIndex, setOpenIndex] = useState(0);
   const items = [
     { title: 'Assignment Question', icon: <List size={18}/>, content: 'Automate the extraction of P&L, Balance Sheet, and Cash Flow statements from complex multi-page financial PDFs using AI Vision.' },
     { title: 'Project Limitations', icon: <AlertTriangle size={18}/>, content: 'Maximum file size is 50MB. AI parsing credits are limited. Accuracy depends on the scan quality.' },
-    { title: 'Described Answer', icon: <FileText size={18}/>, content: 'Uses LlamaParse for structural extraction and Gemini 1.5 Flash for semantic financial mapping.' },
+    { title: 'Described Answer', icon: <FileText size={18}/>, content: 'Frontend:-React.js,Tailwind CSS,Flowbite | Backend:-Python, FastAPI, Uvicorn,python-dotenv,Gemini 2.5 Flash, LlamaParse,Camelot ' },
     { title: 'GitHub Link', icon: <Github size={18}/>, content: <a href="https://github.com/ankit-kumar" target="_blank" rel="noreferrer" className="green-link">View Repository</a> },
   ];
+  const handleDownloadDocumentation = () => {
+    const link = document.createElement('a');
+    link.href = '/Money Stories.pdf'; // Ensure this file is in your public folder
+    link.setAttribute('download', 'Money Stories by ankit kumar.pdf');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <div className="side-dropdowns">
@@ -27,6 +37,10 @@ const SideInfoDropdowns = () => {
           {openIndex === idx && <div className="dropdown-body">{item.content}</div>}
         </div>
       ))}
+<button className='btn-primary' onClick={handleDownloadDocumentation}>
+        Download Project Documentation
+      </button>
+      
     </div>
   );
 };
@@ -43,7 +57,9 @@ const SidebarProfile = () => (
       </div>
     </div>
   </div>
+   
 );
+
 
 // --- MAIN COMPONENT: App ---
 const App = () => {
