@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect,useMemo } from 'react';
 import api from './services/api';
 import { 
   ChevronDown, ChevronUp, FileText, Github, 
@@ -71,16 +71,17 @@ const App = () => {
   const [excelBuffer, setExcelBuffer] = useState(null);
   
   // Rotating Log Messages for User Engagement
-  const loadingLogs = [
-    "Uploading PDF to Secure Server...",
-    "LlamaParse: Initializing AI Vision Engine...",
-    "Analyzing Document Structure...",
-    "Locating Financial Tables...",
-    "Gemini: Mapping Line Items to Schema...",
-    "Cleaning Numerical Data...",
-    "Finalizing Yearly Calculations...",
-    "Generating Formatted Excel Sheet..."
-  ];
+const loadingLogs = useMemo(() => [
+  "Uploading PDF to Secure Server...",
+  "LlamaParse: Initializing AI Vision Engine...",
+  "Analyzing Document Structure...",
+  "Locating Financial Tables...",
+  "Gemini: Mapping Line Items to Schema...",
+  "Cleaning Numerical Data...",
+  "Finalizing Yearly Calculations...",
+  "Generating Formatted Excel Sheet..."
+], []);
+
 
   // Logic to handle Progress Bar and Logs
   useEffect(() => {
@@ -113,7 +114,7 @@ const App = () => {
       clearInterval(progInterval);
       clearInterval(logInterval);
     };
-  }, [loading]);
+  }, [loading,loadingLogs]);
 
   const handleFileChange = (e) => {
     const f = e.target.files[0];
