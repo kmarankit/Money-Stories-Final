@@ -73,3 +73,111 @@ body { margin: 0; background: var(--bg); font-family: sans-serif; }
   from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
+/* ============================= */
+/* RESPONSIVE IMPROVEMENTS       */
+/* ============================= */
+
+/* Make grid responsive */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 20px;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .info-side {
+    order: 2;
+  }
+
+  .upload-side {
+    order: 1;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+  .navbar h2 {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .nav-inner {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .upload-card,
+  .result-card,
+  .sidebar-profile-card {
+    padding: 15px;
+  }
+
+  .upload-dropzone {
+    padding: 20px;
+  }
+
+  .btn-primary,
+  .btn-success {
+    width: 100%;
+  }
+
+  .dropdown-header {
+    font-size: 14px;
+  }
+
+  .profile-name-text {
+    font-size: 16px;
+  }
+
+  .profile-detail {
+    font-size: 13px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+
+  .navbar {
+    padding: 10px;
+  }
+
+  .navbar h2 {
+    font-size: 16px;
+  }
+
+  .nav-avatar {
+    width: 35px;
+    height: 35px;
+  }
+
+  .upload-dropzone {
+    font-size: 14px;
+  }
+
+  .progress-container {
+    height: 6px;
+  }
+
+  .loading-log-text {
+    font-size: 13px;
+    text-align: center;
+  }
+}
+
+/* Make table scrollable horizontally */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Prevent table from breaking layout */
+.data-table {
+  min-width: 600px;
+  border-collapse: collapse;
+}

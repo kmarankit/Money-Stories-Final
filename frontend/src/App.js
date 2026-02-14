@@ -13,9 +13,9 @@ const SideInfoDropdowns = () => {
   const [openIndex, setOpenIndex] = useState(0);
   const items = [
     { title: 'Assignment Question', icon: <List size={18}/>, content: 'Automate the extraction of P&L, Balance Sheet, and Cash Flow statements from complex multi-page financial PDFs using AI Vision.' },
-    { title: 'Project Limitations', icon: <AlertTriangle size={18}/>, content: 'Maximum file size is 50MB. AI parsing credits are limited. Accuracy depends on the scan quality.' },
+    { title: 'Project Limitations', icon: <AlertTriangle size={18}/>, content: 'Maximum file size is 20MB. AI parsing credits are limited. Accuracy depends on the scan quality.' },
     { title: 'Described Answer', icon: <FileText size={18}/>, content: 'Frontend:-React.js,Tailwind CSS,Flowbite | Backend:-Python, FastAPI, Uvicorn,python-dotenv,Gemini 2.5 Flash, LlamaParse,Camelot ' },
-    { title: 'GitHub Link', icon: <Github size={18}/>, content: <a href="https://github.com/ankit-kumar" target="_blank" rel="noreferrer" className="green-link">View Repository</a> },
+    { title: 'GitHub Link', icon: <Github size={18}/>, content: <a href="https://github.com/kmarankit/Money-Stories-Final/" target="_blank" rel="noreferrer" className="green-link">View Repository</a> },
   ];
   const handleDownloadDocumentation = () => {
     const link = document.createElement('a');
