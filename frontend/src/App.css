@@ -181,3 +181,227 @@ body { margin: 0; background: var(--bg); font-family: sans-serif; }
   min-width: 600px;
   border-collapse: collapse;
 }
+/* ===============================
+   GLOBAL FIXES
+================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Prevent horizontal scroll everywhere */
+.dashboard {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ===============================
+   NAVBAR FIX
+================================= */
+
+.navbar {
+  width: 100%;
+  padding: 20px;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+  flex-wrap: wrap;
+}
+
+.nav-avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+
+/* ===============================
+   GRID LAYOUT
+================================= */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 20px;
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .info-side {
+    order: 2;
+  }
+
+  .upload-side {
+    order: 1;
+  }
+}
+
+/* ===============================
+   CARDS
+================================= */
+
+.upload-card,
+.result-card,
+.sidebar-profile-card {
+  width: 100%;
+  max-width: 100%;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+/* ===============================
+   UPLOAD DROPZONE FIX
+================================= */
+
+.upload-area-container {
+  width: 100%;
+}
+
+.upload-dropzone {
+  width: 100%;
+  max-width: 100%;
+  padding: 25px;
+  border-radius: 15px;
+  cursor: pointer;
+  text-align: center;
+  word-break: break-word;
+}
+
+/* Prevent long filename overflow */
+.drop-text strong {
+  display: block;
+  word-break: break-word;
+}
+
+/* ===============================
+   BUTTON FIX
+================================= */
+
+.btn-primary,
+.btn-success {
+  width: 100%;
+  max-width: 100%;
+  padding: 14px;
+  border-radius: 40px;
+}
+
+/* ===============================
+   PROGRESS BAR
+================================= */
+
+.progress-container {
+  width: 100%;
+  height: 8px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* ===============================
+   TABLE FIX
+================================= */
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.data-table {
+  min-width: 600px;
+}
+
+/* ===============================
+   MOBILE OPTIMIZATION
+================================= */
+
+@media (max-width: 768px) {
+
+  .navbar {
+    padding: 15px;
+  }
+
+  .nav-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .navbar h2 {
+    font-size: 18px;
+  }
+
+  .nav-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .dashboard-grid {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .upload-card,
+  .result-card,
+  .sidebar-profile-card {
+    padding: 15px;
+  }
+
+  .upload-dropzone {
+    padding: 20px;
+  }
+
+  .dropdown-header {
+    font-size: 15px;
+  }
+
+  .profile-name-text {
+    font-size: 16px;
+  }
+
+  .profile-detail {
+    font-size: 13px;
+  }
+
+  .loading-log-text {
+    font-size: 13px;
+    text-align: center;
+  }
+}
+
+/* Extra Small Phones */
+
+@media (max-width: 480px) {
+
+  .navbar h2 {
+    font-size: 16px;
+  }
+
+  .upload-card h3 {
+    font-size: 18px;
+  }
+
+  .upload-dropzone {
+    padding: 18px;
+  }
+
+  .btn-primary {
+    font-size: 15px;
+  }
+}
