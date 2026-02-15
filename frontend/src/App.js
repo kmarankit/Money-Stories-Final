@@ -5,6 +5,11 @@ import {
   AlertTriangle, List, Upload, Download 
 } from 'lucide-react';
 import './App.css';
+import * as pdfjsLib from "pdfjs-dist";
+import { GlobalWorkerOptions } from "pdfjs-dist";
+
+GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+
 
 
 
@@ -63,6 +68,7 @@ const SidebarProfile = () => (
 
 // --- MAIN COMPONENT: App ---
 const App = () => {
+  const [setSelectedSample] = useState(null);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -116,10 +122,36 @@ const loadingLogs = useMemo(() => [
     };
   }, [loading,loadingLogs]);
 
-  const handleFileChange = (e) => {
-    const f = e.target.files[0];
-    if (f) setFile(f);
-  };
+ const handleFileChange = async (e) => {
+  const f = e.target.files[0];
+  if (!f) return;
+
+  try {
+    const fileReader = new FileReader();
+
+    fileReader.onload = async function () {
+      const typedArray = new Uint8Array(this.result);
+
+      const pdf = await pdfjsLib.getDocument({ data: typedArray }).promise;
+      const totalPages = pdf.numPages;
+
+      if (totalPages > 10) {
+        alert("❌ PDF exceeds 10 pages. Please upload a file with 10 pages or fewer.");
+        return;
+      }
+
+      setSelectedSample(null);
+      setFile(f);
+    };
+
+    fileReader.readAsArrayBuffer(f);
+
+  } catch (error) {
+    console.error("PDF validation error:", error);
+    alert("Invalid PDF file.");
+  }
+};
+
 
   const handleProcess = async () => {
     if (!file) return;

@@ -6,3 +6,4 @@ pandas==2.3.1
 openpyxl==3.1.5
 llama-parse==0.6.56
 google-genai==1.31.0
+PyPDF2==3.0.1
