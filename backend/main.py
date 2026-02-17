@@ -174,6 +174,7 @@ import sys
 import asyncio
 import logging
 from pathlib import Path
+from PyPDF2 import PdfReader
 
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -207,7 +208,7 @@ app = FastAPI(title="Financial Report Extraction API")
 
 
 # ---------------------------
-# CORS Configuration (IMPORTANT FIX)
+# CORS Configuration
 # ---------------------------
 app.add_middleware(
     CORSMiddleware,
@@ -230,6 +231,7 @@ UPLOAD_DIR.mkdir(exist_ok=True)
 
 ALLOWED_EXTENSIONS = {".pdf"}
 MAX_FILE_SIZE_MB = 20
+MAX_PAGES = 10
 
 
 # ---------------------------
@@ -248,6 +250,7 @@ async def upload_file(file: UploadFile = File(...)):
 
     logger.info(f"Received file: {file.filename}")
 
+    # Validate extension
     extension = Path(file.filename).suffix.lower()
     if extension not in ALLOWED_EXTENSIONS:
         raise HTTPException(
@@ -255,14 +258,17 @@ async def upload_file(file: UploadFile = File(...)):
             detail="Only PDF files are allowed."
         )
 
+    # Read file
     content = await file.read()
 
+    # Validate file size
     if len(content) > MAX_FILE_SIZE_MB * 1024 * 1024:
         raise HTTPException(
             status_code=400,
             detail=f"File exceeds {MAX_FILE_SIZE_MB}MB limit."
         )
 
+    # Create unique filename
     unique_filename = f"{uuid.uuid4().hex}{extension}"
     file_path = UPLOAD_DIR / unique_filename
 
@@ -273,7 +279,24 @@ async def upload_file(file: UploadFile = File(...)):
 
         logger.info(f"File saved at {file_path}")
 
-        # Run extraction in threadpool
+        # ---------------------------
+        # PAGE COUNT VALIDATION
+        # ---------------------------
+        reader = PdfReader(str(file_path))
+        total_pages = len(reader.pages)
+
+        if total_pages > MAX_PAGES:
+            logger.warning(f"PDF has {total_pages} pages. Limit exceeded.")
+            raise HTTPException(
+                status_code=400,
+                detail=f"PDF exceeds {MAX_PAGES} pages. Maximum allowed is {MAX_PAGES} pages."
+            )
+
+        logger.info(f"PDF page count valid: {total_pages} pages")
+
+        # ---------------------------
+        # Run AI Extraction
+        # ---------------------------
         data = await run_in_threadpool(
             extract_financials,
             str(file_path)
@@ -329,14 +352,18 @@ async def upload_file(file: UploadFile = File(...)):
             "excelBuffer": excel_base64
         }
 
+    except HTTPException:
+        raise
+
     except Exception as e:
         logger.exception("Critical failure during processing.")
         raise HTTPException(
             status_code=500,
-            detail=str(e)
+            detail="Internal Server Error"
         )
 
     finally:
+        # Cleanup file
         if file_path.exists():
             file_path.unlink()
             logger.info("Temporary file deleted.")
