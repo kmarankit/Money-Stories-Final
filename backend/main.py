@@ -231,7 +231,7 @@ UPLOAD_DIR.mkdir(exist_ok=True)
 
 ALLOWED_EXTENSIONS = {".pdf"}
 MAX_FILE_SIZE_MB = 20
-MAX_PAGES = 10
+MAX_PAGES = 20
 
 
 # ---------------------------
