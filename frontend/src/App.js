@@ -346,7 +346,7 @@ const SidebarProfile = () => (
 // --- MAIN COMPONENT: App ---
 const App = () => {
   // FIXED: Corrected state initialization
-  const [selectedSample, setSelectedSample] = useState(null);
+  const [, setSelectedSample] = useState(null);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
